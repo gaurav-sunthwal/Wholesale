@@ -1,7 +1,8 @@
 // Product Data Modification Guide
 // This file shows users how to easily modify product data
 
-import { ProductType, addProduct, updateProduct, removeProduct } from './productData'
+import { ProductType } from './productData'
+// import { addProduct, updateProduct, removeProduct } from './productData'
 
 // ========================================
 // HOW TO MODIFY PRODUCT DATA
@@ -10,13 +11,14 @@ import { ProductType, addProduct, updateProduct, removeProduct } from './product
 // 1. ADDING NEW PRODUCTS
 // To add a new product, simply add it to the array in productData.ts:
 
-const newProduct: Omit<ProductType, 'id'> = {
-  name: "Your New Product Name",
-  currentPrice: "£299.00",
-  originalPrice: "£399.00",
-  image: "/slider/your-image.png", // Make sure to add your image to public/slider/
-  discount: "25%"
-}
+// Example of how to create a new product
+// const newProduct: Omit<ProductType, 'id'> = {
+//   name: "Your New Product Name",
+//   currentPrice: "£299.00",
+//   originalPrice: "£399.00",
+//   image: "/slider/your-image.png", // Make sure to add your image to public/slider/
+//   discount: "25%"
+// }
 
 // Add the product (this will automatically assign an ID)
 // addProduct(newProduct)
@@ -24,12 +26,13 @@ const newProduct: Omit<ProductType, 'id'> = {
 // 2. UPDATING EXISTING PRODUCTS
 // To update an existing product:
 
-const productUpdates = {
-  name: "Updated Product Name",
-  currentPrice: "£199.00",
-  originalPrice: "£299.00",
-  discount: "33%"
-}
+// Example of product updates
+// const productUpdates = {
+//   name: "Updated Product Name",
+//   currentPrice: "£199.00",
+//   originalPrice: "£299.00",
+//   discount: "33%"
+// }
 
 // Update product with ID 1
 // updateProduct(1, productUpdates)

@@ -3,6 +3,9 @@
 
 import { ProductType } from '../Home/section/cardSlider'
 
+// Re-export ProductType for use in other files
+export type { ProductType }
+
 // Default product data - Users can modify this array
 export const defaultProducts: ProductType[] = [
   {
