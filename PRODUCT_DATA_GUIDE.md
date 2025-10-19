@@ -143,3 +143,5 @@ The CardSlider component supports many customization options:
 - `className` - Additional CSS classes
 
 Happy customizing! 🎉
+
+
