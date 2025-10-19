@@ -108,25 +108,25 @@ export default function CardSlider({ config, preset }: CardSliderProps) {
     <div className={`w-full py-6 ${sliderConfig.className}`}>
       <div className="max-w-screen mx-auto px-4 sm:px-6 lg:px-8 h-auto items-center justify-center">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">{sliderConfig.title}</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{sliderConfig.title}</h2>
           
           {/* Navigation Arrows - Only show if enabled */}
           {sliderConfig.showNavigation && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
               <Button 
                 variant="outline" 
                 size="icon" 
-                className="card-slider-prev rounded-full bg-white shadow-md hover:shadow-lg"
+                className="card-slider-prev rounded-full bg-white shadow-md hover:shadow-lg w-8 h-8 sm:w-10 sm:h-10"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-800" />
+                <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-gray-800" />
               </Button>
               <Button 
                 variant="outline" 
                 size="icon" 
-                className="card-slider-next rounded-full bg-white shadow-md hover:shadow-lg"
+                className="card-slider-next rounded-full bg-white shadow-md hover:shadow-lg w-8 h-8 sm:w-10 sm:h-10"
               >
-                <ChevronRight className="w-6 h-6 text-gray-800" />
+                <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-gray-800" />
               </Button>
             </div>
           )}

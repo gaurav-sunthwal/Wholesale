@@ -53,16 +53,16 @@ const SearchBar = ({
       placeholder="Search..."
       onFocus={onFocus}
       onBlur={onBlur}
-      className={`bg-white text-gray-900 placeholder-gray-500 px-3 py-2 ${
+      className={`bg-white text-gray-900 placeholder-gray-500 px-2 sm:px-3 py-2 ${
         isMobile
-          ? "flex-1 focus:outline-none border-none focus:ring-0"
-          : `w-24 sm:w-32 md:w-40 focus:outline-none border-none focus:ring-0 ${
+          ? "flex-1 focus:outline-none border-none focus:ring-0 min-w-0"
+          : `w-20 sm:w-24 md:w-32 lg:w-40 focus:outline-none border-none focus:ring-0 min-w-0 ${
               isFocused ? "border-none" : ""
             }`
       }`}
     />
-    <div className="bg-[#364451] w-full h-full flex items-center justify-center p-2">
-      <SearchIcon className="text-white" />
+    <div className="bg-[#364451] flex-shrink-0 h-full flex items-center justify-center p-2">
+      <SearchIcon className="text-white w-5 " />
     </div>
   </div>
 );
@@ -75,13 +75,13 @@ const ShoppingCartButton = ({
   <button
     className={`${
       isMobile
-        ? "bg-teal-800 text-white p-3 rounded-lg hover:bg-teal-700 transition-colors"
-        : "bg-[#163040] text-white px-3 py-2 md:px-4 rounded-lg flex items-center space-x-1 md:space-x-2 hover:bg-teal-700 transition-colors"
+        ? "bg-teal-800 text-white p-2 sm:p-3 rounded-lg hover:bg-teal-700 transition-colors flex-shrink-0"
+        : "bg-[#163040] text-white px-2 sm:px-3 md:px-4 py-2 rounded-lg flex items-center space-x-1 md:space-x-2 hover:bg-teal-700 transition-colors flex-shrink-0"
     } ${className}`}
   >
-    <ShoppingCartIcon className={isMobile ? "w-5 h-5" : "w-4 h-4"} />
+    <ShoppingCartIcon className={isMobile ? "w-4 h-4 sm:w-5 sm:h-5" : "w-4 h-4"} />
     {!isMobile && showPrice && (
-      <span className="text-xs md:text-sm font-medium hidden md:inline">
+      <span className="text-xs md:text-sm font-medium hidden lg:inline">
         £0.00
       </span>
     )}
@@ -142,8 +142,8 @@ export default function Heading() {
           </p>
         </div>
       </div>
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-full">
+        <div className="flex items-center justify-between py-4 min-w-0">
           {/* Logo Section */}
           <div className="flex-shrink-0 md:block hidden">
             <Logo
@@ -162,7 +162,7 @@ export default function Heading() {
           </nav>
 
           {/* Search and Cart Section */}
-          <div className="hidden sm:flex items-center space-x-2 md:space-x-3">
+          <div className="hidden sm:flex items-center space-x-2 md:space-x-3 flex-shrink-0">
             <SearchBar
               isMobile={false}
               isFocused={isFocused}
@@ -171,8 +171,10 @@ export default function Heading() {
             />
             <ShoppingCartButton isMobile={false} showPrice={true} />
           </div>
+          
+          {/* Mobile Menu Button */}
           <button
-            className="lg:hidden hover:text-teal-800 p-2 bg-[#163040] rounded-lg text-white"
+            className="lg:hidden hover:text-teal-800 p-2 bg-[#163040] rounded-lg text-white flex-shrink-0"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -181,8 +183,9 @@ export default function Heading() {
               <MenuIcon className="w-6 h-6" />
             )}
           </button>
+          
           {/* Mobile Search and Cart */}
-          <div className="flex sm:hidden items-center space-x-2">
+          <div className="flex sm:hidden items-center space-x-2 flex-shrink-0">
             <SearchBar isMobile={true} />
             <ShoppingCartButton isMobile={true} />
           </div>

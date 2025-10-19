@@ -101,7 +101,7 @@ export default function About() {
       <section className="py-0 px-0" style={{ background: "#1a2332" }}>
         <div className="flex flex-col lg:flex-row lg:max-h-[70vh]">
           {/* Left Section - Living Room Image */}
-          <div className="w-full lg:w-[60%] ">
+          <div className="w-full lg:w-[60%] order-2 lg:order-1">
             <Image
               src="/slider/room.png"
               alt="Living room showcase"
@@ -113,17 +113,17 @@ export default function About() {
 
           {/* Right Section - Text Panel */}
           <div
-            className="w-full lg:w-[40%] flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-8 lg:py-16"
+            className="w-full lg:w-[40%] flex flex-col justify-center px-4 sm:px-6 lg:px-12 py-6 sm:py-8 lg:py-16 order-1 lg:order-2"
             style={{ background: "#1a2332" }}
           >
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4">
               Wholesale Furniture Outlet
             </h1>
 
-            <p className="text-base sm:text-lg text-white mb-6">Established in 2015</p>
+            <p className="text-sm sm:text-base lg:text-lg text-white mb-4 sm:mb-6">Established in 2015</p>
 
-            <div className="space-y-4 sm:space-y-6 text-white">
-              <p className="text-sm sm:text-base leading-relaxed">
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6 text-white">
+              <p className="text-xs sm:text-sm lg:text-base leading-relaxed">
                 Discover Wholesale Furniture Outlet - your premier destination for
                 exquisite furnishings crafted with precision and care. From
                 luxurious beds and inviting sofas to elegant dining sets and
@@ -131,7 +131,7 @@ export default function About() {
                 meticulously handmade pieces tailored to elevate your home.
               </p>
 
-              <p className="text-sm sm:text-base leading-relaxed">
+              <p className="text-xs sm:text-sm lg:text-base leading-relaxed">
                 Explore our extensive selection of over 3000 products, each
                 available for customization to suit your unique preferences and
                 lifestyle. Experience convenience like never before with our
@@ -139,7 +139,7 @@ export default function About() {
                 opportunity for a free consultation with our expert design team.
               </p>
 
-              <p className="text-sm sm:text-base leading-relaxed">
+              <p className="text-xs sm:text-sm lg:text-base leading-relaxed">
                 For personalized assistance and inquiries, our dedicated customer
                 care team is always ready to provide friendly and knowledgeable
                 support.
@@ -178,38 +178,38 @@ export default function About() {
       </section>
 
       {/* Customer Testimonial Section */}
-      <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8" style={{ background: "#2c5f6f" }}>
+      <section className="py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8" style={{ background: "#2c5f6f" }}>
         <div className="max-w-4xl mx-auto text-center">
           <div className="relative">
             {/* Navigation Arrows */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 lg:-translate-x-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all duration-300"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 lg:-translate-x-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-1 sm:p-2 transition-all duration-300"
               aria-label="Previous testimonial"
             >
-              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-6 sm:h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 lg:translate-x-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all duration-300"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 lg:translate-x-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-1 sm:p-2 transition-all duration-300"
               aria-label="Next testimonial"
             >
-              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-6 sm:h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
             {/* Current Testimonial */}
-            <div className="px-8 lg:px-16">
+            <div className="px-4 sm:px-8 lg:px-16">
               {/* Star Rating */}
-              <div className="flex justify-center mb-4 sm:mb-6">
+              <div className="flex justify-center mb-3 sm:mb-4 lg:mb-6">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, starIndex) => (
                   <svg
                     key={`star-${starIndex}`}
-                    className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400"
+                    className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-yellow-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -219,29 +219,29 @@ export default function About() {
               </div>
 
               {/* Testimonial Title */}
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-3 sm:mb-4 lg:mb-6">
                 {testimonials[currentTestimonial].title}
               </h3>
 
               {/* Review Text */}
-              <p className="text-sm sm:text-base lg:text-lg text-white mb-6 sm:mb-8 leading-relaxed">
+              <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white mb-4 sm:mb-6 lg:mb-8 leading-relaxed">
                 {testimonials[currentTestimonial].review}
               </p>
 
               {/* Reviewer Info */}
-              <p className="text-white text-sm sm:text-base lg:text-lg">
+              <p className="text-white text-xs sm:text-sm lg:text-base xl:text-lg">
                 {testimonials[currentTestimonial].reviewer} / {testimonials[currentTestimonial].date}
               </p>
             </div>
           </div>
 
           {/* Pagination Dots */}
-          <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
+          <div className="flex justify-center mt-4 sm:mt-6 lg:mt-8 space-x-2">
             {testimonials.map((_, dotIndex) => (
               <button
                 key={`dot-${dotIndex}`}
                 onClick={() => goToTestimonial(dotIndex)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   dotIndex === currentTestimonial ? 'bg-white' : 'bg-white opacity-30 hover:opacity-50'
                 }`}
                 aria-label={`Go to testimonial ${dotIndex + 1}`}
