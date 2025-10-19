@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   ChevronDownIcon,
@@ -10,9 +10,16 @@ import {
 } from "lucide-react";
 
 // Types
+interface DropdownItem {
+  name: string;
+  href?: string;
+  subItems?: DropdownItem[];
+}
+
 interface NavigationItemType {
   name: string;
   hasDropdown: boolean;
+  dropdownItems?: DropdownItem[];
 }
 
 // Reusable Components
@@ -88,41 +95,158 @@ const ShoppingCartButton = ({
   </button>
 );
 
+// Dropdown Component
+const Dropdown = ({
+  items,
+  isOpen,
+  onClose,
+  isMobile = false,
+  className = "",
+}: {
+  items: DropdownItem[];
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile?: boolean;
+  className?: string;
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className={`${
+        isMobile
+          ? "bg-gray-50 border-l-2 border-teal-600 ml-4 mt-2 space-y-1"
+          : "absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[200px]"
+      } ${className}`}
+    >
+      {items.map((item, index) => (
+        <div key={index}>
+          <a
+            href={item.href || "#"}
+            className={`${
+              isMobile
+                ? "block px-3 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-800 transition-colors"
+                : "block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-800 transition-colors first:rounded-t-lg last:rounded-b-lg"
+            }`}
+            onClick={onClose}
+          >
+            {item.name}
+          </a>
+          {item.subItems && (
+            <div className={`${isMobile ? "ml-4" : "pl-4"}`}>
+              {item.subItems.map((subItem, subIndex) => (
+                <a
+                  key={subIndex}
+                  href={subItem.href || "#"}
+                  className={`${
+                    isMobile
+                      ? "block px-3 py-1 text-xs text-gray-600 hover:bg-teal-50 hover:text-teal-800 transition-colors"
+                      : "block px-4 py-1 text-xs text-gray-600 hover:bg-teal-50 hover:text-teal-800 transition-colors"
+                  }`}
+                  onClick={onClose}
+                >
+                  {subItem.name}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const NavigationItem = ({
   item,
   isMobile = false,
   className = "",
+  isDropdownOpen = false,
+  onDropdownToggle = () => {},
+  onDropdownClose = () => {},
+  onDropdownOpen = () => {},
 }: {
   item: NavigationItemType;
   isMobile?: boolean;
   className?: string;
+  isDropdownOpen?: boolean;
+  onDropdownToggle?: () => void;
+  onDropdownClose?: () => void;
+  onDropdownOpen?: () => void;
 }) => (
-  <div
-    className={`flex items-center ${
-      isMobile
-        ? "justify-between cursor-pointer hover:text-teal-800 transition-colors py-2 border-b border-gray-100 last:border-b-0"
-        : `cursor-pointer hover:text-teal-800 transition-colors ${
-            item.hasDropdown ? "space-x-1" : "space-x-0"
-          }`
-    } ${className}`}
+  <div 
+    className={`${isMobile ? "" : "relative"} ${className}`}
+    onMouseEnter={!isMobile && item.hasDropdown ? onDropdownOpen : undefined}
+    onMouseLeave={!isMobile && item.hasDropdown ? onDropdownClose : undefined}
   >
-    <span
-      className={`text-[#163040] ${
-        isMobile ? "text-sm font-medium" : "text-md font-bold"
+    <div
+      className={`flex items-center ${
+        isMobile
+          ? "justify-between cursor-pointer hover:text-teal-800 transition-colors py-2 border-b border-gray-100 last:border-b-0"
+          : `cursor-pointer hover:text-teal-800 transition-colors ${
+              item.hasDropdown ? "space-x-1" : "space-x-0"
+            }`
       }`}
+      onClick={item.hasDropdown ? onDropdownToggle : undefined}
     >
-      {item.name}
-    </span>
-    {item.hasDropdown && <DropdownIcon />}
+      <span
+        className={`text-[#163040] ${
+          isMobile ? "text-sm font-medium" : "text-md font-bold"
+        }`}
+      >
+        {item.name}
+      </span>
+      {item.hasDropdown && <DropdownIcon />}
+    </div>
+    {item.hasDropdown && item.dropdownItems && (
+      <Dropdown
+        items={item.dropdownItems}
+        isOpen={isDropdownOpen}
+        onClose={onDropdownClose}
+        isMobile={isMobile}
+      />
+    )}
   </div>
 );
 
 export default function Heading() {
   const navigationItems = [
-    { name: "Bedroom", hasDropdown: true },
-    { name: "Dinning Furnitures", hasDropdown: true },
+    {
+      name: "Bedroom",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "Bed Frames", href: "/bedroom/bed-frames" },
+        { name: "Mattresses", href: "/bedroom/mattresses" },
+        { name: "Bedside Tables", href: "/bedroom/bedside-tables" },
+        { name: "Wardrobes", href: "/bedroom/wardrobes" },
+        { name: "Dressing Tables", href: "/bedroom/dressing-tables" },
+        { name: "Bedroom Sets", href: "/bedroom/bedroom-sets" },
+      ],
+    },
+    {
+      name: "Dinning Furnitures",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "Dining Tables", href: "/dining/tables" },
+        { name: "Dining Chairs", href: "/dining/chairs" },
+        { name: "Dining Sets", href: "/dining/sets" },
+        { name: "Bar Stools", href: "/dining/bar-stools" },
+        { name: "Buffets & Sideboards", href: "/dining/buffets" },
+        { name: "Dining Benches", href: "/dining/benches" },
+      ],
+    },
     { name: "Glam Accessories", hasDropdown: false },
-    { name: "Sofas", hasDropdown: true },
+    {
+      name: "Sofas",
+      hasDropdown: true,
+      dropdownItems: [
+        { name: "3-Seater Sofas", href: "/sofas/3-seater" },
+        { name: "2-Seater Sofas", href: "/sofas/2-seater" },
+        { name: "Corner Sofas", href: "/sofas/corner" },
+        { name: "Sofa Beds", href: "/sofas/sofa-beds" },
+        { name: "Recliner Sofas", href: "/sofas/recliner" },
+        { name: "Leather Sofas", href: "/sofas/leather" },
+      ],
+    },
     { name: "Wall Panels", hasDropdown: false },
     { name: "Wardrobes", hasDropdown: false },
     { name: "Clearance", hasDropdown: false },
@@ -131,9 +255,55 @@ export default function Heading() {
 
   const [isFocused, setIsFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle dropdown toggle with delay
+  const handleDropdownToggle = (index: number) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
+    setOpenDropdownIndex(openDropdownIndex === index ? null : index);
+  };
+
+  const handleDropdownClose = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setOpenDropdownIndex(null);
+    }, 150); // Small delay to allow mouse movement
+  };
+
+  const handleDropdownOpen = (index: number) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
+    setOpenDropdownIndex(index);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setOpenDropdownIndex(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <header className="w-full">
+    <header ref={headerRef} className="w-full">
       <div className=" bg-[#163040] text-white text-sm font-medium p-5 text-center">
         <div className="flex items-center justify-center gap-2">
           <Logo width={100} height={100} className="block md:hidden" />
@@ -157,7 +327,15 @@ export default function Heading() {
           {/* Navigation Menu */}
           <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             {navigationItems.map((item, index) => (
-              <NavigationItem key={index} item={item} isMobile={false} />
+              <NavigationItem
+                key={index}
+                item={item}
+                isMobile={false}
+                isDropdownOpen={openDropdownIndex === index}
+                onDropdownToggle={() => handleDropdownToggle(index)}
+                onDropdownClose={handleDropdownClose}
+                onDropdownOpen={() => handleDropdownOpen(index)}
+              />
             ))}
           </nav>
 
@@ -197,8 +375,16 @@ export default function Heading() {
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="px-4 py-4 space-y-3">
-              {navigationItems.map((item) => (
-                <NavigationItem key={item.name} item={item} isMobile={true} />
+              {navigationItems.map((item, index) => (
+                <NavigationItem
+                  key={item.name}
+                  item={item}
+                  isMobile={true}
+                  isDropdownOpen={openDropdownIndex === index}
+                  onDropdownToggle={() => handleDropdownToggle(index)}
+                  onDropdownClose={handleDropdownClose}
+                  onDropdownOpen={() => handleDropdownOpen(index)}
+                />
               ))}
             </nav>
           </div>

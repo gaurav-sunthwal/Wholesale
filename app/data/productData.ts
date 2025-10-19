@@ -10,51 +10,75 @@ export type { ProductType }
 export const defaultProducts: ProductType[] = [
   {
     id: 1,
-    name: "Rihanna 2c2 Corner Sofa Dark Grey Velvet",
-    currentPrice: "£899.00",
-    originalPrice: "£1,199.00",
+    name: "Crushed Diamond Angel Wings",
+    currentPrice: "£299.00",
+    originalPrice: "",
     image: "/slider/slider1.png",
-    discount: "25%"
+    discount: "0%"
   },
   {
     id: 2,
-    name: "Louis Grey Marble Dining Table With 4 Chelsea Lion Knockerback Chairs",
-    currentPrice: "£799.00",
-    originalPrice: "£990.00",
+    name: "Crushed Glass TV Unit With Fireplace",
+    currentPrice: "£1299.00",
+    originalPrice: "",
     image: "/slider/slider1.png",
-    discount: "19%"
+    discount: "0%"
   },
   {
     id: 3,
-    name: "Light Oak Wood Effect Slatted Wall Panels",
-    currentPrice: "£129.00",
-    originalPrice: "£290.00",
+    name: "Luxury Crushed Diamond Fireplace With LED Heat Three Setting Supply",
+    currentPrice: "£649.00",
+    originalPrice: "£1189.00",
     image: "/slider/slider1.png",
-    discount: "56%"
+    discount: "45%"
   },
   {
     id: 4,
-    name: "Serina Chesterfield Designer Bed",
-    currentPrice: "£499.00",
-    originalPrice: "£800.00",
-    image: "/slider/slider1.png",
-    discount: "38%"
-  },
-  {
-    id: 5,
-    name: "Modern Glass Coffee Table",
-    currentPrice: "£299.00",
-    originalPrice: "£450.00",
-    image: "/slider/slider1.png",
-    discount: "34%"
-  },
-  {
-    id: 6,
-    name: "Contemporary Dining Chair Set",
+    name: "Premium Diamond Wall Art",
     currentPrice: "£199.00",
     originalPrice: "£350.00",
     image: "/slider/slider1.png",
     discount: "43%"
+  },
+  {
+    id: 5,
+    name: "Crystal Glass Coffee Table",
+    currentPrice: "£399.00",
+    originalPrice: "£599.00",
+    image: "/slider/slider1.png",
+    discount: "33%"
+  },
+  {
+    id: 6,
+    name: "Diamond Accent Mirror",
+    currentPrice: "£149.00",
+    originalPrice: "£249.00",
+    image: "/slider/slider1.png",
+    discount: "40%"
+  },
+  {
+    id: 7,
+    name: "Luxury Diamond Chandelier",
+    currentPrice: "£799.00",
+    originalPrice: "£1299.00",
+    image: "/slider/slider1.png",
+    discount: "38%"
+  },
+  {
+    id: 8,
+    name: "Crushed Glass Side Table",
+    currentPrice: "£249.00",
+    originalPrice: "£399.00",
+    image: "/slider/slider1.png",
+    discount: "38%"
+  },
+  {
+    id: 9,
+    name: "Diamond Wall Sconce",
+    currentPrice: "£99.00",
+    originalPrice: "£179.00",
+    image: "/slider/slider1.png",
+    discount: "45%"
   }
 ]
 
