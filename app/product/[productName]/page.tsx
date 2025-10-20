@@ -1,141 +1,159 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Minus, Plus } from 'lucide-react'
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Minus, Plus } from "lucide-react";
 
 interface ProductDetailPageProps {
   params: {
-    productName: string
-  }
+    productName: string;
+  };
 }
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const [selectedPackage, setSelectedPackage] = useState('3 Bedrooms')
-  const [quantity, setQuantity] = useState(1)
-  const [selectedImage, setSelectedImage] = useState(0)
-  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const [selectedPackage, setSelectedPackage] = useState("3 Bedrooms");
+  const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   // Handle add to cart functionality
   const handleAddToCart = async () => {
-    setIsAddingToCart(true)
-    
+    setIsAddingToCart(true);
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     // Here you would typically call your cart API
-    console.log('Added to cart:', {
+    console.log("Added to cart:", {
       product: productName,
       package: selectedPackage,
       quantity,
-      price: product.price
-    })
-    
-    setIsAddingToCart(false)
-    
+      price: product.price,
+    });
+
+    setIsAddingToCart(false);
+
     // You could add a toast notification here
-    alert(`Added ${quantity} x ${productName} (${selectedPackage}) to cart!`)
-  }
+    alert(`Added ${quantity} x ${productName} (${selectedPackage}) to cart!`);
+  };
 
   // Format product name from URL slug
   const formatProductName = (slug: string) => {
     return slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ')
-  }
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
 
   // Get category from URL or default
   const getCategoryFromSlug = (slug: string) => {
     // You can customize this logic based on your routing structure
     const categoryMap: { [key: string]: string } = {
-      'bedroom-packages': 'Bedroom',
-      'dining-furniture': 'Dining Furnitures', 
-      'glam-accessories': 'Glam Accessories',
-      'sofas': 'Sofas',
-      'wall-panels': 'Wall Panels',
-      'wardrobes': 'Wardrobes',
-      'clearance': 'Clearance',
-      'landlord-furniture': 'Landlord Furniture'
-    }
-    
+      "bedroom-packages": "Bedroom",
+      "dining-furniture": "Dining Furnitures",
+      "glam-accessories": "Glam Accessories",
+      sofas: "Sofas",
+      "wall-panels": "Wall Panels",
+      wardrobes: "Wardrobes",
+      clearance: "Clearance",
+      "landlord-furniture": "Landlord Furniture",
+    };
+
     // Try to match category from slug
     for (const [key, value] of Object.entries(categoryMap)) {
       if (slug.includes(key)) {
-        return value
+        return value;
       }
     }
-    
-    return 'Landlord Furniture' // Default category
-  }
 
-  const productName = formatProductName(params.productName)
-  const categoryName = getCategoryFromSlug(params.productName)
+    return "Landlord Furniture"; // Default category
+  };
+
+  const productName = formatProductName(params.productName);
+  const categoryName = getCategoryFromSlug(params.productName);
+
+  // Package options data array
+  const packageOptions = ["3 Bedrooms", "4 Bedrooms", "5 Bedrooms", "6 Bedrooms"];
+
+  // Package includes items array
+  const packageIncludes = [
+    "Double Divan Base",
+    "Double Orthopaedic Mattresses",
+    "Double Plain Headboard", 
+    "Reflect Two Door Wardrobe",
+    "Reflect Five Drawer Chest",
+    "Reflect Two Drawer Bedside"
+  ];
+
+  // Additional options array
+  const additionalOptions = [
+    "Matching desk for study areas",
+    "Combi/mirrored wardrobe options", 
+    "Various divan bed colors and sizes",
+    "Storage upgrades for enhanced functionality"
+  ];
+
+  // Description paragraphs array
+  const descriptionParagraphs = [
+    "We specialize in landlord furniture packs, catering to landlords, property managers, and investors who need reliable, high-quality furniture for their rental properties. Our packages are designed to provide everything needed to furnish a bedroom professionally and attractively.",
+    "All our furniture packs include free UK delivery, assembly, and installation. We understand the importance of durability and style in rental properties, which is why we use high-quality composite materials with matt effect carcass and high gloss fronts, along with metal drawer runners for long-lasting performance.",
+    "Mix and match different packs to create the perfect setup for your property. Contact us for custom configurations and bulk pricing."
+  ];
+
+  // Social media sharing options array
+  const socialMediaOptions = [
+    {
+      platform: "heart",
+      icon: "❤️",
+      title: "Add to Wishlist",
+      action: () => alert(`Added ${productName} to wishlist!`)
+    },
+    {
+      platform: "instagram", 
+      icon: "📷",
+      title: "Share on Instagram",
+      action: () => window.open(`https://www.instagram.com/`, "_blank")
+    },
+    {
+      platform: "facebook",
+      icon: "📘", 
+      title: "Share on Facebook",
+      action: () => window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+        "_blank"
+      )
+    }
+  ];
 
   // Sample product data - in real app, this would come from API/database
   const product = {
     id: 1,
     name: productName,
-    price: '£1,999.00',
+    price: "£1,999.00",
     images: [
-      '/slider/slider1.png',
-      '/slider/produt1.png',
-      '/slider/room.png',
-      '/slider/slider1.png',
-      '/slider/produt1.png',
-      '/slider/room.png'
+      "/slider/slider1.png",
+      "/slider/produt1.png",
+      "/slider/room.png",
+      "/slider/slider1.png",
+      "/slider/produt1.png",
+      "/slider/room.png",
     ],
-    packages: ['3 Bedrooms', '4 Bedrooms', '5 Bedrooms', '6 Bedrooms'],
+    packages: packageOptions,
     description: `We specialize in landlord furniture packs, catering to landlords, property managers, and investors who need reliable, high-quality furniture for their rental properties. Our packages are designed to provide everything needed to furnish a bedroom professionally and attractively.
 
 All our furniture packs include free UK delivery, assembly, and installation. We understand the importance of durability and style in rental properties, which is why we use high-quality composite materials with matt effect carcass and high gloss fronts, along with metal drawer runners for long-lasting performance.
 
-Each package includes:
-• Double Divan Base
-• Double Orthopaedic Mattresses  
-• Double Plain Headboard
-• Reflect Two Door Wardrobe
-• Reflect Five Drawer Chest
-• Reflect Two Drawer Bedside
+Mix and match different packs to create the perfect setup for your property. Contact us for custom configurations and bulk pricing.`,
+  };
 
-Additional options available:
-• Matching desk for study areas
-• Combi/mirrored wardrobe options
-• Various divan bed colors and sizes
-• Storage upgrades for enhanced functionality
-
-Mix and match different packs to create the perfect setup for your property. Contact us for custom configurations and bulk pricing.`
-  }
-
-  // Handle social media sharing
-  const handleSocialShare = (platform: string) => {
-    const url = window.location.href
-    
-    switch (platform) {
-      case 'heart':
-        // Add to wishlist functionality
-        alert(`Added ${productName} to wishlist!`)
-        break
-      case 'instagram':
-        // Instagram sharing
-        window.open(`https://www.instagram.com/`, '_blank')
-        break
-      case 'facebook':
-        // Facebook sharing
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank')
-        break
-    }
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
       {/* Top Bar */}
-     
 
       {/* Navigation Bar */}
-     
 
       {/* Breadcrumb */}
       <div className="bg-gray-800 text-white py-2 px-4">
@@ -145,8 +163,8 @@ Mix and match different packs to create the perfect setup for your property. Con
               Home
             </Link>
             <span className="mx-2">/</span>
-            <Link 
-              href={`/${categoryName.toLowerCase().replace(/\s+/g, '-')}`} 
+            <Link
+              href={`/${categoryName.toLowerCase().replace(/\s+/g, "-")}`}
               className="hover:text-gray-300 transition-colors"
             >
               {categoryName}
@@ -175,19 +193,21 @@ Mix and match different packs to create the perfect setup for your property. Con
           {/* Middle Column - Product Details */}
           <div className="lg:col-span-4">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h1 className="text-2xl font-bold text-gray-800 mb-6">{product.name}</h1>
-              
+              <h1 className="text-2xl font-bold text-gray-800 mb-6">
+                {product.name}
+              </h1>
+
               {/* Package Options */}
               <div className="mb-6">
                 <div className="grid grid-cols-2 gap-2">
-                  {product.packages.map((pkg) => (
+                  {packageOptions.map((pkg) => (
                     <button
                       key={pkg}
                       onClick={() => setSelectedPackage(pkg)}
                       className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                         selectedPackage === pkg
-                          ? 'bg-gray-800 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? "bg-gray-800 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
                       {pkg}
@@ -198,13 +218,17 @@ Mix and match different packs to create the perfect setup for your property. Con
 
               {/* Price */}
               <div className="mb-6">
-                <span className="text-3xl font-bold text-gray-800">{product.price}</span>
+                <span className="text-3xl font-bold text-gray-800">
+                  {product.price}
+                </span>
               </div>
 
               {/* Quantity Selector */}
               <div className="mb-6">
                 <div className="flex items-center gap-4">
-                  <span className="text-sm font-medium text-gray-700">Quantity:</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    Quantity:
+                  </span>
                   <div className="flex items-center border border-gray-300 rounded-md">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -212,7 +236,9 @@ Mix and match different packs to create the perfect setup for your property. Con
                     >
                       <Minus className="w-4 h-4" />
                     </button>
-                    <span className="px-4 py-2 border-x border-gray-300">{quantity}</span>
+                    <span className="px-4 py-2 border-x border-gray-300">
+                      {quantity}
+                    </span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
                       className="p-2 hover:bg-gray-100"
@@ -224,37 +250,26 @@ Mix and match different packs to create the perfect setup for your property. Con
               </div>
 
               {/* Add to Cart Button */}
-              <Button 
+              <Button
                 onClick={handleAddToCart}
                 disabled={isAddingToCart}
                 className="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 mb-4 disabled:opacity-50"
               >
-                {isAddingToCart ? 'Adding...' : 'Add to Cart'}
+                {isAddingToCart ? "Adding..." : "Add to Cart"}
               </Button>
 
               {/* Social Media Icons */}
               <div className="flex gap-3">
-                <button 
-                  onClick={() => handleSocialShare('heart')}
-                  className="p-2 bg-gray-100 rounded-full hover:bg-gray-200"
-                  title="Add to Wishlist"
-                >
-                  ❤️
-                </button>
-                <button 
-                  onClick={() => handleSocialShare('instagram')}
-                  className="p-2 bg-gray-100 rounded-full hover:bg-gray-200"
-                  title="Share on Instagram"
-                >
-                  📷
-                </button>
-                <button 
-                  onClick={() => handleSocialShare('facebook')}
-                  className="p-2 bg-gray-100 rounded-full hover:bg-gray-200"
-                  title="Share on Facebook"
-                >
-                  📘
-                </button>
+                {socialMediaOptions.map((social) => (
+                  <button
+                    key={social.platform}
+                    onClick={social.action}
+                    className="p-2 bg-gray-100 rounded-full hover:bg-gray-200"
+                    title={social.title}
+                  >
+                    {social.icon}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -267,7 +282,9 @@ Mix and match different packs to create the perfect setup for your property. Con
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`relative w-full h-16 rounded-md overflow-hidden border-2 transition-colors ${
-                    selectedImage === index ? 'border-gray-800' : 'border-gray-200'
+                    selectedImage === index
+                      ? "border-gray-800"
+                      : "border-gray-200"
                   }`}
                 >
                   <Image
@@ -286,39 +303,37 @@ Mix and match different packs to create the perfect setup for your property. Con
         <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Description</h2>
           <div className="prose max-w-none">
-            <p className="text-gray-700 mb-4">
-              We specialize in landlord furniture packs, catering to landlords, property managers, and investors who need reliable, high-quality furniture for their rental properties. Our packages are designed to provide everything needed to furnish a bedroom professionally and attractively.
-            </p>
-            
-            <p className="text-gray-700 mb-4">
-              All our furniture packs include free UK delivery, assembly, and installation. We understand the importance of durability and style in rental properties, which is why we use high-quality composite materials with matt effect carcass and high gloss fronts, along with metal drawer runners for long-lasting performance.
-            </p>
+            {/* Description paragraphs */}
+            {descriptionParagraphs.map((paragraph, index) => (
+              <p key={index} className="text-gray-700 mb-4">
+                {paragraph}
+              </p>
+            ))}
 
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Package includes:</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                Package includes:
+              </h3>
               <ul className="list-disc list-inside text-gray-700 space-y-1">
-                <li>Double Divan Base</li>
-                <li>Double Orthopaedic Mattresses</li>
-                <li>Double Plain Headboard</li>
-                <li>Reflect Two Door Wardrobe</li>
-                <li>Reflect Five Drawer Chest</li>
-                <li>Reflect Two Drawer Bedside</li>
+                {packageIncludes.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
 
-            <p className="text-gray-700 mb-4">
-              Additional options available: matching desk for study areas, combi/mirrored wardrobe options, various divan bed colors and sizes, and storage upgrades for enhanced functionality.
-            </p>
-
-            <p className="text-gray-700">
-              Mix and match different packs to create the perfect setup for your property. Contact us for custom configurations and bulk pricing.
-            </p>
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                Additional options available:
+              </h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                {additionalOptions.map((option, index) => (
+                  <li key={index}>{option}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-
-     
-      
     </div>
-  )
+  );
 }

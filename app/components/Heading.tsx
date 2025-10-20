@@ -9,6 +9,54 @@ import {
   XIcon,
 } from "lucide-react";
 
+const navigationItems = [
+  {
+    name: "Bedroom",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Bed Frames", href: "/bedroom/bed-frames" },
+      { name: "Mattresses", href: "/bedroom/mattresses" },
+      { name: "Bedside Tables", href: "/bedroom/bedside-tables" },
+      { name: "Wardrobes", href: "/bedroom/wardrobes" },
+      { name: "Dressing Tables", href: "/bedroom/dressing-tables" },
+      { name: "Bedroom Sets", href: "/bedroom/bedroom-sets" },
+    ],
+  },
+  {
+    name: "Dinning Furnitures",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Dining Tables", href: "/dining/tables" },
+      { name: "Dining Chairs", href: "/dining/chairs" },
+      { name: "Dining Sets", href: "/dining/sets" },
+      { name: "Bar Stools", href: "/dining/bar-stools" },
+      { name: "Buffets & Sideboards", href: "/dining/buffets" },
+      { name: "Dining Benches", href: "/dining/benches" },
+    ],
+  },
+  { name: "Glam Accessories", hasDropdown: false, href: "/glam-accessories" },
+  {
+    name: "Sofas",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "3-Seater Sofas", href: "/sofas/3-seater" },
+      { name: "2-Seater Sofas", href: "/sofas/2-seater" },
+      { name: "Corner Sofas", href: "/sofas/corner" },
+      { name: "Sofa Beds", href: "/sofas/sofa-beds" },
+      { name: "Recliner Sofas", href: "/sofas/recliner" },
+      { name: "Leather Sofas", href: "/sofas/leather" },
+    ],
+  },
+  { name: "Wall Panels", hasDropdown: false, href: "/wall-panels" },
+  { name: "Wardrobes", hasDropdown: false, href: "/wardrobes" },
+  { name: "Clearance", hasDropdown: false, href: "/clearance" },
+  {
+    name: "Landlord Furniture",
+    hasDropdown: false,
+    href: "/landlord-furniture",
+  },
+];
+
 // Types
 interface DropdownItem {
   name: string;
@@ -19,6 +67,7 @@ interface DropdownItem {
 interface NavigationItemType {
   name: string;
   hasDropdown: boolean;
+  href?: string;
   dropdownItems?: DropdownItem[];
 }
 
@@ -63,7 +112,7 @@ const SearchBar = ({
       className={`bg-white text-gray-900 placeholder-gray-500 px-2 sm:px-3 py-2 ${
         isMobile
           ? "flex-1 focus:outline-none border-none focus:ring-0 min-w-0"
-          : `w-20 sm:w-24 md:w-32 lg:w-40 focus:outline-none border-none focus:ring-0 min-w-0 ${
+          : ` md:w-20 xl:w-30 focus:outline-none border-none focus:ring-0 min-w-0 ${
               isFocused ? "border-none" : ""
             }`
       }`}
@@ -86,9 +135,9 @@ const ShoppingCartButton = ({
         : "bg-[#163040] text-white px-2 sm:px-3 md:px-4 py-2 rounded-lg flex items-center space-x-1 md:space-x-2 hover:bg-teal-700 transition-colors flex-shrink-0"
     } ${className}`}
   >
-    <ShoppingCartIcon className={isMobile ? "w-4 h-4 sm:w-5 sm:h-5" : "w-4 h-4"} />
+    <ShoppingCartIcon />
     {!isMobile && showPrice && (
-      <span className="text-xs md:text-sm font-medium hidden lg:inline">
+      <span className="text-xs md:text-sm font-medium hidden xl:inline">
         £0.00
       </span>
     )}
@@ -173,7 +222,7 @@ const NavigationItem = ({
   onDropdownClose?: () => void;
   onDropdownOpen?: () => void;
 }) => (
-  <div 
+  <div
     className={`${isMobile ? "" : "relative"} ${className}`}
     onMouseEnter={!isMobile && item.hasDropdown ? onDropdownOpen : undefined}
     onMouseLeave={!isMobile && item.hasDropdown ? onDropdownClose : undefined}
@@ -188,13 +237,14 @@ const NavigationItem = ({
       }`}
       onClick={item.hasDropdown ? onDropdownToggle : undefined}
     >
-      <span
+      <a
         className={`text-[#163040] ${
           isMobile ? "text-sm font-medium" : "text-md font-bold"
         }`}
+        href={item.href || "#"}
       >
         {item.name}
-      </span>
+      </a>
       {item.hasDropdown && <DropdownIcon />}
     </div>
     {item.hasDropdown && item.dropdownItems && (
@@ -209,53 +259,11 @@ const NavigationItem = ({
 );
 
 export default function Heading() {
-  const navigationItems = [
-    {
-      name: "Bedroom",
-      hasDropdown: true,
-      dropdownItems: [
-        { name: "Bed Frames", href: "/bedroom/bed-frames" },
-        { name: "Mattresses", href: "/bedroom/mattresses" },
-        { name: "Bedside Tables", href: "/bedroom/bedside-tables" },
-        { name: "Wardrobes", href: "/bedroom/wardrobes" },
-        { name: "Dressing Tables", href: "/bedroom/dressing-tables" },
-        { name: "Bedroom Sets", href: "/bedroom/bedroom-sets" },
-      ],
-    },
-    {
-      name: "Dinning Furnitures",
-      hasDropdown: true,
-      dropdownItems: [
-        { name: "Dining Tables", href: "/dining/tables" },
-        { name: "Dining Chairs", href: "/dining/chairs" },
-        { name: "Dining Sets", href: "/dining/sets" },
-        { name: "Bar Stools", href: "/dining/bar-stools" },
-        { name: "Buffets & Sideboards", href: "/dining/buffets" },
-        { name: "Dining Benches", href: "/dining/benches" },
-      ],
-    },
-    { name: "Glam Accessories", hasDropdown: false },
-    {
-      name: "Sofas",
-      hasDropdown: true,
-      dropdownItems: [
-        { name: "3-Seater Sofas", href: "/sofas/3-seater" },
-        { name: "2-Seater Sofas", href: "/sofas/2-seater" },
-        { name: "Corner Sofas", href: "/sofas/corner" },
-        { name: "Sofa Beds", href: "/sofas/sofa-beds" },
-        { name: "Recliner Sofas", href: "/sofas/recliner" },
-        { name: "Leather Sofas", href: "/sofas/leather" },
-      ],
-    },
-    { name: "Wall Panels", hasDropdown: false },
-    { name: "Wardrobes", hasDropdown: false },
-    { name: "Clearance", hasDropdown: false },
-    { name: "Landlord Furniture", hasDropdown: false },
-  ];
-
   const [isFocused, setIsFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
+    null
+  );
   const headerRef = useRef<HTMLElement>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -288,14 +296,17 @@ export default function Heading() {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
         setOpenDropdownIndex(null);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
       if (dropdownTimeoutRef.current) {
         clearTimeout(dropdownTimeoutRef.current);
       }
@@ -349,24 +360,24 @@ export default function Heading() {
             />
             <ShoppingCartButton isMobile={false} showPrice={true} />
           </div>
-          
+
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden hover:text-teal-800 p-2 bg-[#163040] rounded-lg text-white flex-shrink-0"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <XIcon className="w-6 h-6" />
-            ) : (
-              <MenuIcon className="w-6 h-6" />
-            )}
-          </button>
-          
-          {/* Mobile Search and Cart */}
-          <div className="flex sm:hidden items-center space-x-2 flex-shrink-0">
-            <SearchBar isMobile={true} />
+          <div className="flex justify-between w-full lg:hidden items-center space-x-2">
+            <button
+              className="lg:hidden hover:text-teal-800 p-2 bg-[#163040] rounded-lg text-white flex-shrink-0"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <XIcon className="w-6 h-6" />
+              ) : (
+                <MenuIcon className="w-6 h-6" />
+              )}
+            </button>
+            <SearchBar />
             <ShoppingCartButton isMobile={true} />
           </div>
+
+          {/* Mobile Search and Cart */}
 
           {/* Mobile Menu Button */}
         </div>
