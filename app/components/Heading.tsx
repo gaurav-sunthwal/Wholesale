@@ -137,7 +137,7 @@ const ShoppingCartButton = ({
   >
     <ShoppingCartIcon />
     {!isMobile && showPrice && (
-      <span className="text-xs md:text-sm font-medium hidden xl:inline">
+      <span className="text-xs md:text-sm font-medium hidden md:inline">
         £0.00
       </span>
     )}
@@ -362,7 +362,7 @@ export default function Heading() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex justify-between w-full lg:hidden items-center space-x-2">
+          <div className="flex justify-between w-full md:hidden items-center space-x-2">
             <button
               className="lg:hidden hover:text-teal-800 p-2 bg-[#163040] rounded-lg text-white flex-shrink-0"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
